@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements | Madduri Vaishnavi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --bg-dark: #0a0a1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.08);
+            --gradient-1: linear-gradient(135deg, #7c3aed, #ec4899, #06b6d4);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 16px 0;
+            background: rgba(10, 10, 26, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo {
+            font-size: 1.5rem; font-weight: 700;
+            background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a {
+            color: var(--text-secondary); font-weight: 500; font-size: 0.95rem;
+            transition: color 0.3s ease; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--gradient-1); transition: width 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 28px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            padding: 160px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 30%, rgba(236, 72, 153, 0.08) 0%, transparent 60%);
+        }
+        .page-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; position: relative;
+            background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 12px;
+        }
+        .page-hero p { color: var(--text-secondary); font-size: 1.1rem; position: relative; max-width: 600px; margin: 0 auto; }
+        .page-hero .section-line { width: 60px; height: 4px; background: var(--gradient-1); border-radius: 2px; margin: 20px auto 0; position: relative; }
+
+        /* ===== ACHIEVEMENTS ===== */
+        .achievements-section { padding: 60px 0 100px; }
+
+        .achievement-card {
+            display: flex; align-items: flex-start; gap: 24px;
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 24px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .achievement-card::before {
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+            width: 4px; background: var(--gradient-1);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .achievement-card:hover {
+            border-color: rgba(124, 58, 237, 0.3);
+            transform: translateX(6px);
+            background: var(--bg-card-hover);
+        }
+        .achievement-card:hover::before { opacity: 1; }
+
+        .achievement-icon {
+            width: 64px; height: 64px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; flex-shrink: 0;
+        }
+        .achievement-icon.gold { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+        .achievement-icon.silver { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; }
+        .achievement-icon.bronze { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+        .achievement-icon.special { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+        .achievement-icon.scholarship { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+
+        .achievement-content h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+        .achievement-content .achievement-place {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 14px; border-radius: 50px;
+            font-size: 0.8rem; font-weight: 600; margin-bottom: 8px;
+        }
+        .achievement-place.gold { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+        .achievement-place.silver { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; }
+        .achievement-place.bronze { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+        .achievement-place.special { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+        .achievement-place.scholarship { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+
+        .achievement-content p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* ===== BACK BUTTON ===== */
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 28px; border-radius: 50px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            color: var(--text-secondary); font-family: 'Poppins', sans-serif;
+            font-weight: 500; font-size: 0.95rem; cursor: pointer;
+            transition: all 0.3s ease; margin-top: 40px;
+        }
+        .back-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateX(-4px); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 40px 0; border-top: 1px solid var(--border); text-align: center;
+        }
+        .footer p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 75%; max-width: 300px; height: 100vh;
+                background: rgba(10, 10, 26, 0.98); backdrop-filter: blur(20px);
+                flex-direction: column; padding: 100px 40px; gap: 24px;
+                transition: right 0.3s ease; border-left: 1px solid var(--border);
+            }
+            .nav-links.active { right: 0; }
+            .hamburger { display: flex; }
+            .achievement-card { flex-direction: column; gap: 16px; }
+            .achievement-icon { width: 52px; height: 52px; font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">&lt;MV /&gt;</a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#experience">Experience</a>
+                <a href="achievements.html" class="active">Achievements</a>
+                <a href="events.html">Events</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+        <h1>🏆 Achievements</h1>
+        <p>Recognitions and awards that fuel my passion for technology</p>
+        <div class="section-line"></div>
+    </section>
+
+    <!-- ===== ACHIEVEMENTS ===== -->
+    <section class="achievements-section">
+        <div class="container">
+
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="achievement-icon gold"><i class="fas fa-trophy"></i></div>
+                <div class="achievement-content">
+                    <h3>Smart India Hackathon</h3>
+                    <div class="achievement-place gold"><i class="fas fa-medal"></i> Top 2</div>
+                    <p>Secured Top 2 position in the prestigious national-level Smart India Hackathon, competing against teams from across the country.</p>
+                </div>
+            </div>
+
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="50">
+                <div class="achievement-icon gold"><i class="fas fa-lightbulb"></i></div>
+                <div class="achievement-content">
+                    <h3>Innovation Expo</h3>
+                    <div class="achievement-place gold"><i class="fas fa-medal"></i> Top 3</div>
+                    <p>Achieved Top 3 in the Innovation Expo, showcasing creative and impactful technology solutions.</p>
+                </div>
+            </div>
+
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="achievement-icon bronze"><i class="fas fa-code"></i></div>
+                <div class="achievement-content">
+                    <h3>InnovateX Hackathon</h3>
+                    <div class="achievement-place bronze"><i class="fas fa-award"></i> 4th Place</div>
+                    <p>Secured 4th place in the InnovateX Hackathon, demonstrating strong problem-solving and development skills.</p>
+                </div>
+            </div>
+
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="achievement-icon silver"><i class="fas fa-gears"></i></div>
+                <div class="achievement-content">
+                    <h3>DevOps Club Challenge</h3>
+                    <div class="achievement-place silver"><i class="fas fa-medal"></i> 2nd Place</div>
+                    <p>Won 2nd place in the DevOps Club Challenge, excelling in DevOps practices and continuous integration workflows.</p>
+                </div>
+            </div>
+
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="achievement-icon special"><i class="fas fa-star"></i></div>
+                <div class="achievement-content">
+                    <h3>Best Technology Project Award</h3>
+                    <div class="achievement-place special"><i class="fas fa-gem"></i> Excellence Award</div>
+                    <p>Recognized for excellence in project innovation, awarded the Best Technology Project for outstanding technical implementation.</p>
+                </div>
+            </div>
+
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="achievement-icon scholarship"><i class="fas fa-indian-rupee-sign"></i></div>
+                <div class="achievement-content">
+                    <h3>PM Scholarship — ₹3,000/month</h3>
+                    <div class="achievement-place scholarship"><i class="fas fa-graduation-cap"></i> Merit Scholarship</div>
+                    <p>Awarded the Prime Minister Scholarship of ₹3,000 per month for outstanding KCET rank and Pre-University performance.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Madduri Vaishnavi. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
+        navLinks.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
+    </script>
+</body>
+</html>
